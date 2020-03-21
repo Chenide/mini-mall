@@ -8,9 +8,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <modules>
-        <module>mini-mall-admin</module>
-    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
