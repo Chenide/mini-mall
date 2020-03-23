@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="generatorConfig.properties"/>
+
+    <context id="DB" targetRuntime="MyBatis3">
+      <!--  <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>-->
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <connectionFactory>
+            <property name="driverClass" value="${jdbc.driver}"/>
+            <property name="connectionURL" value="${jdbc.url}"/>
+            <property name="userId" value="${jdbc.user}"/>
+            <property name="password" value="${jdbc.password}"/>
+        </connectionFactory>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="${target.model.package}" targetProject="${target.project.dir}/src/main/java" >
+            <property name="enableSubPackage" value="true"/>
+            <property name="trimString" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="${target.model.package}" targetProject="${target.project.dir}/src/main/resources/mybatis">
+            <property name="enableSubPackage" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="${target.client.package}"
+                             targetProject="${target.project.dir}/src/main/java">
+
+        </javaClientGenerator>
+
+
+        <table tableName="m_mall_admin_user" domainObjectName="MallAdminUserDO">
+            <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
+        </table>
+        <table tableName="m_mall_admin_user_role" domainObjectName="MallAdminUserRoleDO">
+            <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
+        </table>
+        <table tableName="m_mall_role" domainObjectName="MallRoleDO">
+            <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
+        </table>
+        <table tableName="m_mall_role_authority" domainObjectName="MallRoleAuthorityDO">
+            <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

@@ -6,6 +6,9 @@
     <groupId>com.mini.mall</groupId>
     <artifactId>mini-mall</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>mini-mall-common-dal-generator</module>
+    </modules>
     <packaging>pom</packaging>
 
 
