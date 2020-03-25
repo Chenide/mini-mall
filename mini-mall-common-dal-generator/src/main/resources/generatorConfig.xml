@@ -44,13 +44,10 @@
         <table tableName="m_mall_admin_user" domainObjectName="MallAdminUserDO">
             <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
         </table>
-        <table tableName="m_mall_admin_user_role" domainObjectName="MallAdminUserRoleDO">
+        <table tableName="m_mall_menu" domainObjectName="MallRoleDO">
             <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
         </table>
-        <table tableName="m_mall_role" domainObjectName="MallRoleDO">
-            <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
-        </table>
-        <table tableName="m_mall_role_authority" domainObjectName="MallRoleAuthorityDO">
+        <table tableName="m_mall_resource" domainObjectName="MallRoleAuthorityDO">
             <generatedKey column="id" sqlStatement="MYSQL" identity="true"/>
         </table>
 

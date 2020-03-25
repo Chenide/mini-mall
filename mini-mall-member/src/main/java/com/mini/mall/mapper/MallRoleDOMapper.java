@@ -11,7 +11,7 @@ public interface MallRoleDOMapper {
 
     int deleteByExample(MallRoleDOExample example);
 
-    int deleteByPrimaryKey(Integer roleId);
+    int deleteByPrimaryKey(Integer menuId);
 
     int insert(MallRoleDO record);
 
@@ -21,7 +21,7 @@ public interface MallRoleDOMapper {
 
     List<MallRoleDO> selectByExample(MallRoleDOExample example);
 
-    MallRoleDO selectByPrimaryKey(Integer roleId);
+    MallRoleDO selectByPrimaryKey(Integer menuId);
 
     int updateByExampleSelective(@Param("record") MallRoleDO record, @Param("example") MallRoleDOExample example);
 

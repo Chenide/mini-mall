@@ -11,6 +11,8 @@ public interface MallRoleAuthorityDOMapper {
 
     int deleteByExample(MallRoleAuthorityDOExample example);
 
+    int deleteByPrimaryKey(Integer id);
+
     int insert(MallRoleAuthorityDO record);
 
     int insertSelective(MallRoleAuthorityDO record);
@@ -19,7 +21,13 @@ public interface MallRoleAuthorityDOMapper {
 
     List<MallRoleAuthorityDO> selectByExample(MallRoleAuthorityDOExample example);
 
+    MallRoleAuthorityDO selectByPrimaryKey(Integer id);
+
     int updateByExampleSelective(@Param("record") MallRoleAuthorityDO record, @Param("example") MallRoleAuthorityDOExample example);
 
     int updateByExample(@Param("record") MallRoleAuthorityDO record, @Param("example") MallRoleAuthorityDOExample example);
+
+    int updateByPrimaryKeySelective(MallRoleAuthorityDO record);
+
+    int updateByPrimaryKey(MallRoleAuthorityDO record);
 }
