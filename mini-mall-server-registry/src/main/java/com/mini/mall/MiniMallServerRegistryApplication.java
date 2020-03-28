@@ -1,15 +1,15 @@
-package com.mini.mall.springcloudserveradministrator;
+package com.mini.mall;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
-@EnableEurekaServer
 @SpringBootApplication
-public class SpringCloudServerAdministratorApplication {
+@EnableEurekaServer
+public class MiniMallServerRegistryApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringCloudServerAdministratorApplication.class, args);
+        SpringApplication.run(MiniMallServerRegistryApplication.class, args);
     }
 
 }

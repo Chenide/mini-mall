@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mini.mall</groupId>
-    <artifactId>spring-cloud-server-administrator</artifactId>
+    <artifactId>mini-mall-server-registry</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-cloud-server-administrator</name>
+    <name>demo</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

@@ -1,10 +1,10 @@
-package com.mini.mall.springcloudserveradministrator;
+package com.mini.mall;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringCloudServerAdministratorApplicationTests {
+class DemoApplicationTests {
 
     @Test
     void contextLoads() {
