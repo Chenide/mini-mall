@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
-public interface MallRoleAuthorityDOMapper {
+public interface MallRoleAuthorityMapper {
     long countByExample(MallRoleAuthorityDOExample example);
 
     int deleteByExample(MallRoleAuthorityDOExample example);

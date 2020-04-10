@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mini.mall.mapper.MallRoleDOMapper">
-  <resultMap id="BaseResultMap" type="com.mini.mall.model.MallRoleDO">
-    <id column="menu_id" jdbcType="INTEGER" property="menuId" />
+<mapper namespace="com.mini.mall.mapper.MallRoleAuthorityMapper">
+  <resultMap id="BaseResultMap" type="com.mini.mall.model.MallRoleAuthorityDO">
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="parent_id" jdbcType="INTEGER" property="parentId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="desc" jdbcType="VARCHAR" property="desc" />
     <result column="level" jdbcType="VARCHAR" property="level" />
-    <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="resource_id" jdbcType="INTEGER" property="resourceId" />
-    <result column="seq" jdbcType="INTEGER" property="seq" />
+    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
     <result column="status" jdbcType="CHAR" property="status" />
-    <result column="is_leaf" jdbcType="CHAR" property="isLeaf" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -75,16 +72,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    menu_id, parent_id, name, url, desc, level, type, resource_id, seq, status, is_leaf, 
-    create_time, update_time
+    id, parent_id, name, url, desc, level, menu_id, status, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.mini.mall.model.MallRoleDOExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.mini.mall.model.MallRoleAuthorityDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from m_mall_menu
+    from m_mall_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,37 +91,38 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from m_mall_menu
-    where menu_id = #{menuId,jdbcType=INTEGER}
+    from m_mall_resource
+    where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from m_mall_menu
-    where menu_id = #{menuId,jdbcType=INTEGER}
+    delete from m_mall_resource
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mini.mall.model.MallRoleDOExample">
-    delete from m_mall_menu
+  <delete id="deleteByExample" parameterType="com.mini.mall.model.MallRoleAuthorityDOExample">
+    delete from m_mall_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.mini.mall.model.MallRoleDO">
-    insert into m_mall_menu (menu_id, parent_id, name, 
-      url, desc, level, type, 
-      resource_id, seq, status, 
-      is_leaf, create_time, update_time
+  <insert id="insert" parameterType="com.mini.mall.model.MallRoleAuthorityDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_mall_resource (parent_id, name, url, 
+      desc, level, menu_id, 
+      status, create_time, update_time
       )
-    values (#{menuId,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{resourceId,jdbcType=INTEGER}, #{seq,jdbcType=INTEGER}, #{status,jdbcType=CHAR}, 
-      #{isLeaf,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+    values (#{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{menuId,jdbcType=INTEGER}, 
+      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mini.mall.model.MallRoleDO">
-    insert into m_mall_menu
+  <insert id="insertSelective" parameterType="com.mini.mall.model.MallRoleAuthorityDO">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into m_mall_resource
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        menu_id,
-      </if>
       <if test="parentId != null">
         parent_id,
       </if>
@@ -141,20 +138,11 @@
       <if test="level != null">
         level,
       </if>
-      <if test="type != null">
-        type,
-      </if>
-      <if test="resourceId != null">
-        resource_id,
-      </if>
-      <if test="seq != null">
-        seq,
+      <if test="menuId != null">
+        menu_id,
       </if>
       <if test="status != null">
         status,
-      </if>
-      <if test="isLeaf != null">
-        is_leaf,
       </if>
       <if test="createTime != null">
         create_time,
@@ -164,9 +152,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        #{menuId,jdbcType=INTEGER},
-      </if>
       <if test="parentId != null">
         #{parentId,jdbcType=INTEGER},
       </if>
@@ -182,20 +167,11 @@
       <if test="level != null">
         #{level,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="resourceId != null">
-        #{resourceId,jdbcType=INTEGER},
-      </if>
-      <if test="seq != null">
-        #{seq,jdbcType=INTEGER},
+      <if test="menuId != null">
+        #{menuId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         #{status,jdbcType=CHAR},
-      </if>
-      <if test="isLeaf != null">
-        #{isLeaf,jdbcType=CHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -205,17 +181,17 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.mini.mall.model.MallRoleDOExample" resultType="java.lang.Long">
-    select count(*) from m_mall_menu
+  <select id="countByExample" parameterType="com.mini.mall.model.MallRoleAuthorityDOExample" resultType="java.lang.Long">
+    select count(*) from m_mall_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update m_mall_menu
+    update m_mall_resource
     <set>
-      <if test="record.menuId != null">
-        menu_id = #{record.menuId,jdbcType=INTEGER},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.parentId != null">
         parent_id = #{record.parentId,jdbcType=INTEGER},
@@ -232,20 +208,11 @@
       <if test="record.level != null">
         level = #{record.level,jdbcType=VARCHAR},
       </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=VARCHAR},
-      </if>
-      <if test="record.resourceId != null">
-        resource_id = #{record.resourceId,jdbcType=INTEGER},
-      </if>
-      <if test="record.seq != null">
-        seq = #{record.seq,jdbcType=INTEGER},
+      <if test="record.menuId != null">
+        menu_id = #{record.menuId,jdbcType=INTEGER},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=CHAR},
-      </if>
-      <if test="record.isLeaf != null">
-        is_leaf = #{record.isLeaf,jdbcType=CHAR},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -259,26 +226,23 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update m_mall_menu
-    set menu_id = #{record.menuId,jdbcType=INTEGER},
+    update m_mall_resource
+    set id = #{record.id,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       desc = #{record.desc,jdbcType=VARCHAR},
       level = #{record.level,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
-      resource_id = #{record.resourceId,jdbcType=INTEGER},
-      seq = #{record.seq,jdbcType=INTEGER},
+      menu_id = #{record.menuId,jdbcType=INTEGER},
       status = #{record.status,jdbcType=CHAR},
-      is_leaf = #{record.isLeaf,jdbcType=CHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mini.mall.model.MallRoleDO">
-    update m_mall_menu
+  <update id="updateByPrimaryKeySelective" parameterType="com.mini.mall.model.MallRoleAuthorityDO">
+    update m_mall_resource
     <set>
       <if test="parentId != null">
         parent_id = #{parentId,jdbcType=INTEGER},
@@ -295,20 +259,11 @@
       <if test="level != null">
         level = #{level,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        type = #{type,jdbcType=VARCHAR},
-      </if>
-      <if test="resourceId != null">
-        resource_id = #{resourceId,jdbcType=INTEGER},
-      </if>
-      <if test="seq != null">
-        seq = #{seq,jdbcType=INTEGER},
+      <if test="menuId != null">
+        menu_id = #{menuId,jdbcType=INTEGER},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=CHAR},
-      </if>
-      <if test="isLeaf != null">
-        is_leaf = #{isLeaf,jdbcType=CHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -317,31 +272,28 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where menu_id = #{menuId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mini.mall.model.MallRoleDO">
-    update m_mall_menu
+  <update id="updateByPrimaryKey" parameterType="com.mini.mall.model.MallRoleAuthorityDO">
+    update m_mall_resource
     set parent_id = #{parentId,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       desc = #{desc,jdbcType=VARCHAR},
       level = #{level,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
-      resource_id = #{resourceId,jdbcType=INTEGER},
-      seq = #{seq,jdbcType=INTEGER},
+      menu_id = #{menuId,jdbcType=INTEGER},
       status = #{status,jdbcType=CHAR},
-      is_leaf = #{isLeaf,jdbcType=CHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where menu_id = #{menuId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectByExampleWithRowbounds" parameterType="com.mini.mall.model.MallRoleDOExample" resultMap="BaseResultMap">
+  <select id="selectByExampleWithRowbounds" parameterType="com.mini.mall.model.MallRoleAuthorityDOExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from m_mall_menu
+    from m_mall_resource
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
